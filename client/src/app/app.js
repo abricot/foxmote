@@ -14,8 +14,10 @@ angular.module('app', [
   'directives.streamdetails',
   'directives.spinner',
   'filters.xbmc',
+  'filters.fallback',
   'services.xbmc',
   'services.storage',
+  'templates.abricot',
   'templates.app',
   'lrInfiniteScroll'
   ]);

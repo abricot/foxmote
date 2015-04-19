@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/yang.css" ng-disabled="theme==='yin'"></link>
     <script type="text/javascript" src="js/lib/angular.js"></script>
     <script type="text/javascript" src="js/lib/third.js"></script>
+    <script type="text/javascript" src="js/lib/abricot.js"></script>
     <script type="text/javascript" src="js/<%= grunt.config.get('pkg.name') %>.js"></script>
 
   </head>
@@ -43,7 +44,7 @@
       </div>
     </section>
 
-    <div ng-include src="'navigation/navigation.tpl.html'" ng-controller="NavigationCtrl"></div>
+    <div ng-include src="'modules/navigation/navigation.tpl.html'" ng-controller="NavigationCtrl"></div>
     <div class="font-loader"> 
       <div class="kenyanCoffee">Preload kenyc.ttf</div>
       <div class="ffosxbmc">Preload ffosxbmc.ttf</div>

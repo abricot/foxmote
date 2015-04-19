@@ -64,6 +64,14 @@ module.exports = function (grunt) {
                 src: ['<%= src.tpl.app %>'],
                 dest: '<%= wwwdir %>/js/app.js',
                 module: 'templates.app'
+            },
+            abricot: {
+                options: {
+                    base: 'vendor/abricot-directives/src/app'
+                },
+                src: ['vendor/abricot-directives/src/app/**/*.html'],
+                dest: '<%= wwwdir %>/js/abricot.js',
+                module: 'templates.abricot'
             }
         },
         concat:{
@@ -87,16 +95,25 @@ module.exports = function (grunt) {
                     'src/assets/js/ui-bootstrap-custom-0.10.0.js', 
                     'vendor/angular-ui-router/release/angular-ui-router.js',
                     'vendor/angular-touch/angular-touch.js',
-                    'vendor/lrInfiniteScroll/lrInfiniteScroll.js'
                 ],
                 dest: '<%= wwwdir %>/js/lib/angular.js'
             },
             thirdparty: {
                 src:[
+                    'vendor/lrInfiniteScroll/lrInfiniteScroll.js',
                     'vendor/mousetrap/mousetrap.js',
                     'vendor/chrome-platform-analytic/google-analytics-bundle.js'
                 ],
                 dest: '<%= wwwdir %>/js/lib/third.js'
+            },
+            abricot: {
+                src:[
+                    'vendor/abricot-directives/**/*.js',
+                    'vendor/abricot-filters/**/*.js',
+                    'vendor/abricot-services/**/*.js',
+                    '<%= wwwdir %>/js/abricot.js'
+                ],
+                dest: '<%= wwwdir %>/js/lib/abricot.js'
             }
         },
         uglify: {
