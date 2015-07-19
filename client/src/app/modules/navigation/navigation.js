@@ -2,17 +2,23 @@ angular.module('app')
 .controller('NavigationCtrl', ['$scope', '$location', '$filter',
   function ($scope, $location, $filter) {
     $scope.medias = [{
-      hash: '/movies',
+      hash: '/movies/all',
       icon: 'icon-film',
       label: 'Movies'
     }, {
-      hash: '/tvshows',
+      hash: '/tvshows/all',
       icon: 'icon-facetime-video',
       label: 'TV Shows'
     }, {
       hash: '/musics/artists',
       icon: 'icon-music',
       label: 'Musics'
+    }];
+
+    $scope.discover = [{
+      hash : '/movies/popular',
+      icon : 'icon-film',
+      label : 'Movies'
     }];
 
     $scope.controls = [{

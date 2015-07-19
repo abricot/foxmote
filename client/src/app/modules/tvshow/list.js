@@ -1,22 +1,6 @@
 angular.module('app')
-.config(['$stateProvider',
-  function($stateProvider) {
-    $stateProvider.state('tvshows', {
-      url: '/tvshows',
-      views: {
-        header: {
-          templateUrl: 'layout/headers/basic.tpl.html'
-        },
-        body: {
-          templateUrl: 'modules/tvshow/list.tpl.html',
-          controller: 'TvShowListCtrl'
-        }
-      }
-    });
-  }
-])
-.controller('TvShowListCtrl', ['$scope', 'storage',
-  function TvShowListCtrl($scope, storage) {
+.controller('TvShowListCtrl', ['$scope', '$filter',
+  function TvShowListCtrl($scope, $filter) {
     $scope.loading = true;
     $scope.scanning = false;
     $scope.fetching = false;
@@ -70,6 +54,28 @@ angular.module('app')
         scope: this
       });
     }
+
+    $scope.getEpisodesPath = function(show) {
+      return '#/tvshow/'+show.tvshowid;
+    };
+
+    $scope.getExtra = function (show) {
+      return show.episode + ' espisodes';
+    };
+
+    $scope.getFanart = function (show) {
+      return $scope.getImage(show.art.fanart);
+    };
+
+    $scope.getPoster = function (show) {
+      return $scope.getImage(show.thumbnail);
+    };
+
+    $scope.getImage = function (image, fallback) {
+      fallback = fallback || 'img/icons/foxy-512.png'
+      var url = $filter('asset')(image, $scope.host);
+      return $filter('fallback')(url, fallback);
+    };
 
     $scope.loadMore = function () {
       if(!$scope.scanning && $scope.tvshows.length < $scope.total) {

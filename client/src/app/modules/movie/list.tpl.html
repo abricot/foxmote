@@ -2,10 +2,10 @@
     <div ng-switch-when="true" class="loading"><div class="foxy"></div></div>
     <div class="view movies" ng-switch-when="false">
         <div class="arts">
-            <div class="banner" image image-source="randomMovie.fanart | asset:host | fallback:'img/backgrounds/banner.png'">
+            <div class="banner" image image-source="getImage(randomMovie.fanart,'img/backgrounds/banner.png')">
             </div>
             <div class="md-action md-action-primary"
-                 ng-click="scan()">
+                 ng-click="scan()" ng-if="hasControls()">
                 <i class="icon-refresh"></i>
             </div>
         </div>
@@ -14,23 +14,25 @@
         </div>
 
         <ul data-type="list" lr-infinite-scroll="loadMore">
-            <li class="row movie" ng-repeat="movie in movies"
-                ng-click="go('/movie/' + movie.movieid, 'none')">
-                <div class="span3 flip-container">
-                    <flipper>
-                        <div class="front">
-                            <div class="md-circle poster" image image-source="movie.thumbnail | asset:host | fallback:'img/icons/foxy-512.png'"></div>
-                        </div>
-                        <div class="back" rating rating-value="movie.rating" rating-max="10"></div>
-                    </flipper>
-                </div>
-                <div class="span8">
-                    <p>{{movie.label}}</p>
-                    <p>{{movie.genre.join(', ')}}</p>
-                    <p class="clock">
-                        {{movie.runtime | time | date:'HH:mm'}}
-                    </p>
-                </div>
+            <li class="row movie" ng-repeat="movie in movies">
+                <a href="{{getMoviesPath(movie)}}">
+                  <div class="span3 flip-container">
+                      <flipper>
+                          <div class="front">
+                              <div class="md-circle poster" image image-source="getPoster(movie)"></div>
+                          </div>
+                          <div class="back" rating rating-value="movie.rating" rating-max="10"></div>
+                      </flipper>
+                  </div>
+                  <div class="span8">
+                      <p>{{movie.label || movie.title}}</p>
+                      <p ng-show="movie.genre">{{movie.genre.join(', ')}}</p>
+                      <p ng-show="!movie.genre">{{movie.year}}</p>
+                      <p class="clock">
+                          {{movie.runtime | time | date:'HH:mm'}}
+                      </p>
+                  </div>
+                </a>
             </li>
         </ul>
         <div ng-show="!movies.length" class="empty list">Oops! nothing here</div>

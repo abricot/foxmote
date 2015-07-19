@@ -2,7 +2,7 @@
     <div ng-switch-when="true" class="loading"><div class="foxy"></div></div>
     <div ng-switch-when="false" class="tvshow">
         <div class="arts">
-            <div class="banner" image image-source="episodes[0].art['tvshow.banner'] | asset:host | fallback:'img/backgrounds/banner.png'"></div>
+            <div class="banner" image image-source="getFanart()"></div>
             <div class="md-action md-action-primary" ng-show="episodes.length" ng-click="queueAll()">
                 <i class="icon-plus"></i>
             </div>
@@ -13,7 +13,7 @@
                 <div class="span3 flip-container">
                     <flipper>
                         <div class="front">
-                            <div class="md-circle poster" image image-source="episode.thumbnail | asset:host">
+                            <div class="md-circle poster" image image-source="getPoster(episode)">
                                 <em class="playcount" ng-show="episode.playcount">&#10003;</em>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                     </div>
                 </flipper>
                 <div class="span8">
-                    <p>{{episode.title}}</p>
+                    <p>{{episode.title || episode.name}}</p>
                     <p>{{episode.episode | episode:episode.season}}</p>
                 </div>
             </li>

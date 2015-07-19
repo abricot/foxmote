@@ -2,7 +2,7 @@ angular.module('app')
 .config(['$stateProvider',
   function($stateProvider) {
     $stateProvider.state('episode', {
-      url: '/tvshow/:tvshowid/:season/:episodeid',
+      url: '/tvshow/:tvshowid/season/:season/episode/:episodeid',
       views: {
         header: {
           templateUrl: 'layout/headers/backable.tpl.html'
@@ -14,6 +14,7 @@ angular.module('app')
       }
     });
   }
+
 ])
 .controller('EpisodeDetailsCtrl', ['$scope', '$stateParams', '$location',
   function EpisodeDetailsCtrl($scope, $stateParams, $location) {

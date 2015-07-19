@@ -2,10 +2,10 @@
   <div ng-switch-when="true" class="loading"><div class="foxy"></div></div>
   <div ng-switch-when="false" class="seasons">
     <div class="arts">
-        <div class="banner" image image-source="seasons[0].fanart | asset:host | fallback:'img/backgrounds/banner.png'">
+        <div class="banner" image image-source="getImage(seasons[0].fanart, 'img/backgrounds/banner.png')">
         </div>
         <div class="md-action md-action-primary"
-        ng-click="scan()">
+             ng-click="scan()" ng-if="hasControls()">
         <i class="icon-refresh"></i>
       </div>
     </div>
@@ -13,17 +13,18 @@
         <div class="bar"></div>
     </div>
     <ul data-type="list">
-      <li class="row season" ng-repeat="season in seasons | filter:library.criteria"
-      ng-click="go('/tvshow/' + tvshowid + '/' + season.season)">
-        <div class="span3 wrapper">
-          <div class="md-circle poster front" image image-source="season.thumbnail  | asset:host">
-            <em class="playcount" ng-show="show.playcount">&#10003;</em>
+      <li class="row season" ng-repeat="season in seasons | filter:library.criteria">
+        <a href="{{getSeasonPath(season)}}">
+          <div class="span3 wrapper">
+            <div class="md-circle poster front" image image-source="getPoster(season)">
+              <em class="playcount" ng-show="show.playcount">&#10003;</em>
+            </div>
           </div>
-        </div>
-        <div class="span8">
-          <p>{{season.showtitle}}</p>
-          <p>{{season.label}}</p>
-        </div>
+          <div class="span8">
+            <p>{{season.showtitle}}</p>
+            <p>{{season.label}}</p>
+          </div>
+        </a>
       </li>
     </ul>
     <div ng-show="!seasons.length" class="empty list">Oops! nothing here</div>

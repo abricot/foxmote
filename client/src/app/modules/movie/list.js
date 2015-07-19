@@ -1,15 +1,6 @@
 angular.module('app')
-.config(['$stateProvider', function ($stateProvider) {
-  $stateProvider.state('movies', {
-    url: '/movies',
-    views: {
-      header: {templateUrl: 'layout/headers/basic.tpl.html'},
-      body: {templateUrl: 'modules/movie/list.tpl.html', controller: 'MovieListCtrl'}
-    }
-  })
-}])
-.controller('MovieListCtrl', ['$scope', 'storage',
-  function MovieListCtrl($scope, storage) {
+.controller('MovieListCtrl', ['$scope', 'storage', '$filter',
+  function MovieListCtrl($scope, storage, $filter) {
     $scope.loading = true;
     $scope.scanning = false;
     $scope.fetching = false;
@@ -60,8 +51,22 @@ angular.module('app')
       $scope.xbmc.register('Websocket.OnConnected', { fn : onLoad, scope : this});
     }
 
-    $scope.getRandomIndex = function () {
-      return randomIndex;
+    $scope.getMoviesPath = function(movie) {
+      return '#/movie/'+movie.movieid;
+    };
+
+    $scope.getPoster = function (movie) {
+      return $scope.getImage(movie.thumbnail);
+    };
+
+    $scope.getImage = function (image, fallback) {
+      fallback = fallback || 'img/icons/foxy-512.png';
+      var url = $filter('asset')(image, $scope.host);
+      return $filter('fallback')(url, fallback);
+    };
+
+    $scope.hasControls = function () {
+      return true;
     };
 
     $scope.loadMore = function () {

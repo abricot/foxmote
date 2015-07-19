@@ -2,13 +2,13 @@
     <div ng-switch-when="true" class="loading"><div class="foxy"></div></div>
     <div class="movie detail" ng-switch-when="false">
         <div class="arts">
-            <div class="fanart" image image-source="library.item.fanart | asset:host"></div>
+            <div class="fanart" image image-source="getImage(movie.fanart)"></div>
             <div class="md-action md-action-primary"
-                 ng-click="xbmc.open({'movieid': library.item.movieid})" ng-show="!player.active">
+                 ng-click="play(movie)" ng-show="!player.active">
                 <i class="icon-play"></i>
             </div>
             <div class="md-action md-action-primary"
-                 ng-click="xbmc.queue({'movieid': library.item.movieid})" ng-show="player.active && !isCurrentlyPlaying">
+                 ng-click="queue(movie)" ng-show="player.active && !isCurrentlyPlaying">
                 <i class="icon-plus"></i>
             </div>
             <div class="md-action md-action-primary"
@@ -17,37 +17,37 @@
                 <i class="icon-pause" ng-show="player.speed"></i>
             </div>
             <div class="poster-wrapper">
-                <img class=" poster" image image-source="library.item.thumbnail | asset:host | fallback:'img/icons/foxy-512.png'"/>
-                <div class="preview"  ng-click="xbmc.open({'file': library.item.trailer})">
+                <img class=" poster" image image-source="getImage(movie.thumbnail || movie.poster, 'w185')"/>
+                <div class="preview" ng-click="xbmc.open({'file': movie.trailer})" ng-if="!isUsingExternalAddon()">
                     <i class="icon-film"></i>
                 </div>
             </div>
-            <streamdetails details="library.item.streamdetails"></streamdetails>
+            <streamdetails details="movie.streamdetails" ng-if="hasAdditionalInfo()"></streamdetails>
         </div>
         <h1>
-            {{library.item.title}}
+            {{movie.title}}
         </h1>
         <div class="content">
             <div class="row properties">
                 <div class="span3">
                     <div class="md-circle clock">
-                        <i>{{library.item.runtime | time | date:'HH:mm'}}</i>
+                        <i>{{movie.runtime | time | date:'HH:mm'}}</i>
                     </div>
                 </div>
                 <div class="span3">
-                    <div rating rating-value="library.item.rating" rating-max="10"></div>
+                    <div rating rating-value="movie.rating" rating-max="10"></div>
                 </div>
                 <div class="span3">
                     <div class="md-circle movie genre">
-                        <i class="genre-{{library.item.genre.join(' genre-').toLowerCase()}}"></i>
+                        <i class="genre-{{movie.genre.join(' genre-').toLowerCase()}}"></i>
                     </div>
                 </div>
                 <div class="span3">
-                    <div class="md-circle cast" image image-source="library.item.cast[0].thumbnail | asset:host | fallback:'img/icons/foxy-512.png'">
+                    <div class="md-circle cast" image image-source="getImage(movie.cast[0].thumbnail)">
                     </div>
                 </div>
             </div>
-            <p class="plot">{{library.item.plot}}</p>
+            <p class="plot">{{movie.plot}}</p>
         </div>
     </div>
 </div>

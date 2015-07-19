@@ -15,7 +15,9 @@ angular.module('app', [
   'directives.spinner',
   'filters.xbmc',
   'filters.fallback',
+  'filters.tmdb',
   'services.xbmc',
+  'services.tmdb',
   'services.storage',
   'templates.abricot',
   'templates.app',
@@ -29,8 +31,8 @@ angular.module('app')
     $urlRouterProvider.otherwise("/");
   }
 ])
-.controller('AppCtrl', ['$scope', '$rootScope', '$state', '$location', '$filter', 'xbmc', 'storage',
-  function($scope, $rootScope, $state, $location, $filter, xbmc, storage) {
+.controller('AppCtrl', ['$scope', '$rootScope', '$state', '$location', '$filter', 'xbmc', 'storage', 'tmdb',
+  function($scope, $rootScope, $state, $location, $filter, xbmc, storage, tmdb) {
     var asChromeApp = window.chrome && window.chrome.storage;
     var analyticsService, analyticsTracker;
     if(asChromeApp) {
@@ -46,6 +48,8 @@ angular.module('app')
     $scope.connected = false;
     $scope.initialized = true;
     $scope.isMaximized = false;
+    $scope.isExternalAddonAvailable = false;
+
     $scope.application = {};
     $scope.player = {
       id: -1,
@@ -69,6 +73,7 @@ angular.module('app')
     $scope.host = null;
     $scope.webserverURL = 'about:blank';
     $scope.xbmc = xbmc;
+    $scope.tmdb = tmdb;
 
     $scope.back = function() {
       $scope.go($scope.previousHash);
@@ -230,6 +235,12 @@ angular.module('app')
       xbmc.setActivePlaylist(-1);
     };
 
+    var onExternalAddonRetrieved = function (result) {
+      if(result && typeof result !== 'undefined' && result.addon) {
+        $scope.isExternalAddonAvailable = result.addon.enabled;
+      }
+    };
+
     xbmc.register('Player.OnPause', {
       fn: onPlayerPause,
       scope: this
@@ -261,6 +272,7 @@ angular.module('app')
       });
       xbmc.getApplicationProperties(onApplicationPropertiesRetrieved);
       xbmc.getActivePlayers(onPlayersRetrieved);
+      xbmc.getAddonDetails('plugin.video.youtube', onExternalAddonRetrieved);
     }
     var onDisconnect = function() {
       $scope.connected = false;
