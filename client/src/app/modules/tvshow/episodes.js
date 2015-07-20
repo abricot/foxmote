@@ -66,7 +66,7 @@ angular.module('app')
     }
 
     $scope.getEpisodePath = function (episode) {
-      return '#/tvshow/' + $scope.tvshowid + '/season/'+$scope.season+'/episode/'+episode.episodeid;
+      return '/tvshow/' + $scope.tvshowid + '/season/'+$scope.season+'/episode/'+episode.episodeid;
     };
 
     $scope.getFanart = function () {
@@ -124,7 +124,7 @@ angular.module('app')
     };
 
     $scope.getEpisodePath = function (episode, index) {
-      return '#/tvshow/' + $scope.tvshowid + '/season/'+$scope.season+'/episode/tmdb/'+index;
+      return '/tvshow/' + $scope.tvshowid + '/season/'+$scope.season+'/episode/tmdb/'+index;
     };
 
     $scope.getFanart = function () {

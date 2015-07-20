@@ -13,18 +13,17 @@
         <div class="bar"></div>
     </div>
     <ul data-type="list">
-      <li class="row season" ng-repeat="season in seasons | filter:library.criteria">
-        <a href="{{getSeasonPath(season)}}">
-          <div class="span3 wrapper">
-            <div class="md-circle poster front" image image-source="getPoster(season)">
-              <em class="playcount" ng-show="show.playcount">&#10003;</em>
-            </div>
+      <li class="row season" ng-repeat="season in seasons | filter:library.criteria"
+          ng-click="go(getSeasonPath(season))">
+        <div class="span3 wrapper">
+          <div class="md-circle poster front" image image-source="getPoster(season)">
+            <em class="playcount" ng-show="show.playcount">&#10003;</em>
           </div>
-          <div class="span8">
-            <p>{{season.showtitle}}</p>
-            <p>{{season.label}}</p>
-          </div>
-        </a>
+        </div>
+        <div class="span8">
+          <p>{{season.showtitle}}</p>
+          <p>{{season.label}}</p>
+        </div>
       </li>
     </ul>
     <div ng-show="!seasons.length" class="empty list">Oops! nothing here</div>

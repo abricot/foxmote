@@ -33,7 +33,7 @@ angular.module('app')
     $scope.tmdb.movies.populars(firstReleaseDate, 5, $scope.pages).then(onMoviesFromSource);
 
     $scope.getMoviesPath = function(movie) {
-      return '#/movie/tmdb/'+movie.id;
+      return '/movie/tmdb/'+movie.id;
     };
 
     $scope.getPoster = function (movie) {

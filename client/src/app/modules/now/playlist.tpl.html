@@ -11,16 +11,21 @@
         <ul data-type="list" class="view songs">
             <li class="row " ng-repeat="item in items"
                 ng-click="xbmc.goTo($index)">
-                <div class="span3 flip-container" ng-show="item.rating">
+                <div class="span3 flip-container">
                     <flipper>
                         <div class="front">
                             <div class="md-circle poster" image image-source="item.art | thumb | asset:host | fallback:'img/icons/foxy-512.png'"></div>
                         </div>
-                        <div class="back" rating rating-value="item.rating" rating-max="10"></div>
+                        <div class="back" rating rating-value="item.rating" rating-max="10" ng-if="item.rating"></div>
+                        <div class="back" ng-if="!item.rating">
+                            <div class="md-circle rating">
+                                <div class="value ng-binding">-</div>
+                                <i class="star icon-star left"></i>
+                                <i class="star icon-star middle"></i>
+                                <i class="star icon-star right"></i>
+                            </div>
+                        </div>
                     </flipper>
-                </div>
-                <div class="span3 wrapper" ng-show="!item.rating">
-                    <div class="md-circle poster" image image-source="item.art | thumb | asset:host | fallback:'img/icons/foxy-512.png'"></div>
                 </div>
                 <div class="span8">
                     <p>{{item.label}}</p>

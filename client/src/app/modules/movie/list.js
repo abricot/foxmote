@@ -52,7 +52,7 @@ angular.module('app')
     }
 
     $scope.getMoviesPath = function(movie) {
-      return '#/movie/'+movie.movieid;
+      return '/movie/'+movie.movieid;
     };
 
     $scope.getPoster = function (movie) {

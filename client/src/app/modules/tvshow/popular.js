@@ -37,7 +37,7 @@ angular.module('app')
     };
 
     $scope.getEpisodesPath = function(show) {
-      return '#/tvshow/tmdb/'+show.id;
+      return '/tvshow/tmdb/'+show.id;
     };
 
     $scope.getExtra = function (show) {

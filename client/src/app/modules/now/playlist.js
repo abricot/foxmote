@@ -5,7 +5,7 @@ angular.module('app')
     views: {
       header: {templateUrl: 'layout/headers/basic.tpl.html'},
       body: {
-        templateUrl: 'now/playlist.tpl.html',
+        templateUrl: 'modules/now/playlist.tpl.html',
         controller: 'NowPlaylistCtrl'
       }
     }

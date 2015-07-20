@@ -68,7 +68,7 @@ angular.module('app')
     };
 
     $scope.getSeasonPath = function (season) {
-      return '#/tvshow/' + $scope.tvshowid + '/season/' + season.season;
+      return '/tvshow/' + $scope.tvshowid + '/season/' + season.season;
     };
 
     $scope.scan = function () {
@@ -109,7 +109,7 @@ angular.module('app')
     };
 
     $scope.getSeasonPath = function (season) {
-      return '#/tvshow/' + $scope.tvshowid + '/season/tmdb/' + season.season;
+      return '/tvshow/' + $scope.tvshowid + '/season/tmdb/' + season.season;
     };
   }
 ]);

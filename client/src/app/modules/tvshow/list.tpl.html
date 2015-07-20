@@ -13,24 +13,23 @@
             <div class="bar"></div>
         </div>
         <ul data-type="list" lr-infinite-scroll="loadMore">
-            <li class="tvshow row" ng-repeat="show in tvshows">
-                <a href="{{getEpisodesPath(show)}}">
-                  <div class="span3 flip-container">
-                      <flipper>
-                          <div class="front">
-                              <div class="md-circle poster front" image image-source="getPoster(show)">
-                                  <em class="playcount" ng-show="show.playcount">&#10003;</em>
-                              </div>
-                          </div>
-                          <div class="back" rating rating-value="show.rating" rating-max="10" ng-if="show.rating"></div>
-                      </flipper>
-                  </div>
-                  <div class="span8">
-                      <p>{{show.title || show.name}}</p>
-                      <p ng-if="show.genre">{{show.genre.join(', ')}}</p>
-                      <p>{{getExtra(show)}}</p>
-                  </div>
-                </a>
+            <li class="tvshow row" ng-repeat="show in tvshows"
+                ng-click="go(getEpisodesPath(show))">
+                <div class="span3 flip-container">
+                    <flipper>
+                        <div class="front">
+                            <div class="md-circle poster front" image image-source="getPoster(show)">
+                                <em class="playcount" ng-show="show.playcount">&#10003;</em>
+                            </div>
+                        </div>
+                        <div class="back" rating rating-value="show.rating" rating-max="10" ng-if="show.rating"></div>
+                    </flipper>
+                </div>
+                <div class="span8">
+                    <p>{{show.title || show.name}}</p>
+                    <p ng-if="show.genre">{{show.genre.join(', ')}}</p>
+                    <p>{{getExtra(show)}}</p>
+                </div>
             </li>
         </ul>
         <div ng-show="!tvshows.length" class="empty list">Oops! nothing here</div>

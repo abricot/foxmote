@@ -14,25 +14,24 @@
         </div>
 
         <ul data-type="list" lr-infinite-scroll="loadMore">
-            <li class="row movie" ng-repeat="movie in movies">
-                <a href="{{getMoviesPath(movie)}}">
-                  <div class="span3 flip-container">
-                      <flipper>
-                          <div class="front">
-                              <div class="md-circle poster" image image-source="getPoster(movie)"></div>
-                          </div>
-                          <div class="back" rating rating-value="movie.rating" rating-max="10"></div>
-                      </flipper>
-                  </div>
-                  <div class="span8">
-                      <p>{{movie.label || movie.title}}</p>
-                      <p ng-show="movie.genre">{{movie.genre.join(', ')}}</p>
-                      <p ng-show="!movie.genre">{{movie.year}}</p>
-                      <p class="clock">
-                          {{movie.runtime | time | date:'HH:mm'}}
-                      </p>
-                  </div>
-                </a>
+            <li class="row movie" ng-repeat="movie in movies"
+                ng-click="go(getMoviesPath(movie))">
+                <div class="span3 flip-container">
+                    <flipper>
+                        <div class="front">
+                            <div class="md-circle poster" image image-source="getPoster(movie)"></div>
+                        </div>
+                        <div class="back" rating rating-value="movie.rating" rating-max="10"></div>
+                    </flipper>
+                </div>
+                <div class="span8">
+                    <p>{{movie.label || movie.title}}</p>
+                    <p ng-show="movie.genre">{{movie.genre.join(', ')}}</p>
+                    <p ng-show="!movie.genre">{{movie.year}}</p>
+                    <p class="clock">
+                        {{movie.runtime | time | date:'HH:mm'}}
+                    </p>
+                </div>
             </li>
         </ul>
         <div ng-show="!movies.length" class="empty list">Oops! nothing here</div>

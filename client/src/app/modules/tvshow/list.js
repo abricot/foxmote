@@ -56,7 +56,7 @@ angular.module('app')
     }
 
     $scope.getEpisodesPath = function(show) {
-      return '#/tvshow/'+show.tvshowid;
+      return '/tvshow/'+show.tvshowid;
     };
 
     $scope.getExtra = function (show) {

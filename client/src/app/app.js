@@ -38,6 +38,16 @@ angular.module('app')
     if(asChromeApp) {
       analyticsService  = analytics.getService('Foxmote');
       analyticsTracker = analyticsService.getTracker('UA-55050807-1');
+    } else {
+      // Standard Google Universal Analytics code
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); 
+
+      ga('create', 'UA-55050807-1', 'auto');
+      ga('set', 'checkProtocolTask', function(){}); // Removes failing protocol check. @see: http://stackoverflow.com/a/22152353/1958200
+      ga('require', 'displayfeatures');
     }
 
     $scope.theme = 'yin';
@@ -73,10 +83,16 @@ angular.module('app')
     $scope.host = null;
     $scope.webserverURL = 'about:blank';
     $scope.xbmc = xbmc;
-    $scope.tmdb = tmdb;
+    $scope.tmdb = tmdb; 
+    $scope.previousHashes = [];
 
     $scope.back = function() {
-      window.history.back();
+      $scope.previousHashes.pop()
+      if($scope.previousHashes.length) {
+        $scope.go($scope.previousHashes.pop());
+      } else {
+        $scope.go('/');
+      }
     };
 
     $scope.go = function(path) {
@@ -84,9 +100,6 @@ angular.module('app')
         $scope.isMaximized = !$scope.isMaximized;
       }
       $location.path(path);
-      if(asChromeApp) {
-        analyticsTracker.sendAppView(path);
-      }
     };
 
     $scope.hasFooter = function() {
@@ -317,14 +330,16 @@ angular.module('app')
       })
     }
 
-    $scope.previousState = null;
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      var hash = fromState.url;
-      angular.forEach(fromParams, function(value, key) {
-        hash = hash.replace(':' + key, value);
-      });
-      $scope.previousHash = hash;
+      var path = $location.path();
+      if(asChromeApp) {
+        analyticsTracker.sendAppView(path);
+      } else {
+        ga('send', 'pageview', path);
+      }
+      $scope.previousHashes.push(path);
     });
+
     $scope.$watch('hosts', function(newVal, oldVal) {
       var filterDefault = function(el) {
         return el.default;
