@@ -76,7 +76,7 @@ angular.module('app')
     $scope.tmdb = tmdb;
 
     $scope.back = function() {
-      $scope.go($scope.previousHash);
+      window.history.back();
     };
 
     $scope.go = function(path) {
@@ -267,9 +267,7 @@ angular.module('app')
     });
 
     var onLoad = function() {
-      $scope.$apply(function() {
-        $scope.connected = true;
-      });
+      $scope.connected = true;
       xbmc.getApplicationProperties(onApplicationPropertiesRetrieved);
       xbmc.getActivePlayers(onPlayersRetrieved);
       xbmc.getAddonDetails('plugin.video.youtube', onExternalAddonRetrieved);

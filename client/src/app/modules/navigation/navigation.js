@@ -19,6 +19,10 @@ angular.module('app')
       hash : '/movies/popular',
       icon : 'icon-film',
       label : 'Movies'
+    }, {
+      hash : '/tvshows/popular',
+      icon : 'icon-facetime-video',
+      label : 'TV Shows'
     }];
 
     $scope.controls = [{

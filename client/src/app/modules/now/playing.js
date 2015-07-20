@@ -40,14 +40,19 @@ angular.module('app')
     $scope.seekTime = timeFilter($scope.player.seek.time);
 
     function onPlayerItemRetrieved(item) {
-      $scope.loading = false;
+      
       if($scope.library.item.type === 'episode') {
         $scope.xbmc.getTVShowDetails(item.tvshowid, function(details){
           item.genre = details.genre;
-          $scope.library.item = item;
+          $scope.episode = item;
+          $scope.loading = false;
         });
+      } else if($scope.library.item.type === 'movie') {
+        $scope.movie = item;
+        $scope.loading = false;
       } else {
         $scope.library.item = item;
+        $scope.loading = false;
       }
     };
 
@@ -71,6 +76,21 @@ angular.module('app')
         scope: this
       });
     }
+    $scope.hasExtra = function () {
+      return true;
+    };
+    $scope.getFanart = function () {
+      return $scope.getImage($scope.episode.thumbnail, 'img/backgrounds/banner.png');
+    };
+
+    $scope.getPoster = function () {
+      return $scope.getImage($scope.episode.art['tvshow.poster']);
+    };
+
+    $scope.getImage = function (path) {
+      var url = $filter('asset')(path, $scope.host);
+      return $filter('fallback')(url, 'img/icons/foxy-512.png');
+    };
 
     $scope.isTypeVideo = function() {
       return $scope.player.type === 'video' ||

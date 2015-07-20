@@ -35,9 +35,6 @@ angular.module('app')
       $scope.seasons = seasons || [];
       $scope.loading = false;
       $scope.updating = false;
-      if ($scope.seasons.length === 1) {
-        $scope.go('/tvshow/' + $scope.tvshowid + '/season/' + $scope.seasons[0].season);
-      }
     };
     var onLoad = function() {
       $scope.xbmc.getSeasons($scope.tvshowid, onSeasonsRetrieved);
@@ -93,9 +90,6 @@ angular.module('app')
       });
       $scope.loading = false;
       $scope.updating = false;
-      if ($scope.seasons.length === 1) {
-        $scope.go('/tvshow/' + $scope.tvshowid + '/season/tmdb/' + $scope.seasons[0].season);
-      }
     };
 
     $scope.tmdb.tv.details($scope.tvshowid).then(onTvShowRetrieved);

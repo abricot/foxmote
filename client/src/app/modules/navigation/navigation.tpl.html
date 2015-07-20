@@ -22,6 +22,19 @@
         </div>
     </header>
     <nav ng-class="{'active-player' : player.active, 'inactive-player': !player.active}">
+        <h2>Discover</h2>
+        <ul>
+            <li ng-repeat="item in discover" class="row" 
+                ng-click="go(item.hash)" ng-class="{selected : isCurrent(item.hash)}">
+                <div class="span2">
+                    <i class="{{item.icon}}"></i>
+                </div>
+                <div class="span9">
+                    {{item.label}}
+                </div>
+            </li>
+        </ul>
+        <h2>My content</h2>
         <ul>
             <li ng-repeat="item in medias" class="row" 
                 ng-click="go(item.hash)" ng-class="{selected : isCurrent(item.hash)}">

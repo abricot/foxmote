@@ -65,8 +65,12 @@ angular.module('app')
       });
     }
 
+    $scope.getEpisodePath = function (episode) {
+      return '#/tvshow/' + $scope.tvshowid + '/season/'+$scope.season+'/episode/'+episode.episodeid;
+    };
+
     $scope.getFanart = function () {
-      return $scope.getImage($scope.episodes[0].art['tvshow.banner'], 'img/backgrounds/banner.png');
+      return $scope.getImage($scope.episodes[0].art['tvshow.fanart'], 'img/backgrounds/banner.png');
     };
 
     $scope.getPoster = function (episode) {
@@ -106,11 +110,8 @@ angular.module('app')
 
     function onTvShowRetrieved(result) {
       $scope.show = result.data;
-
       if($scope.show.seasons.length > 0) {
-        $scope.seasons = $scope.show.seasons;
-        $scope.season = $scope.show.seasons[$scope.show.seasons.length-1];
-        $scope.tmdb.tv.seasons($scope.tvshowid, $scope.season.season).then(onEpisodesRetrieved);
+        $scope.tmdb.tv.seasons($scope.tvshowid, $scope.season).then(onEpisodesRetrieved);
       } else {
         $scope.loading = false;
       }
@@ -122,8 +123,12 @@ angular.module('app')
       return false;
     };
 
+    $scope.getEpisodePath = function (episode, index) {
+      return '#/tvshow/' + $scope.tvshowid + '/season/'+$scope.season+'/episode/tmdb/'+index;
+    };
+
     $scope.getFanart = function () {
-      return $scope.getImage($scope.show.poster, 'img/backgrounds/banner.png');
+      return $scope.getImage($scope.show.fanart, 'img/backgrounds/banner.png');
     };
 
     $scope.getPoster = function (episode) {

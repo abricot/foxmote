@@ -8,22 +8,23 @@
             </div>
         </div>
         <ul data-type="list" class="view">
-            <li class="row episode" ng-repeat="episode in episodes"
-                ng-click="go('/tvshow/' + tvshowid + '/'+season+'/'+episode.episodeid, 'none')">
-                <div class="span3 flip-container">
-                    <flipper>
-                        <div class="front">
-                            <div class="md-circle poster" image image-source="getPoster(episode)">
-                                <em class="playcount" ng-show="episode.playcount">&#10003;</em>
+            <li class="row episode" ng-repeat="episode in episodes">
+                <a href="{{getEpisodePath(episode, $index)}}">
+                    <div class="span3 flip-container">
+                        <flipper>
+                            <div class="front">
+                                <div class="md-circle poster" image image-source="getPoster(episode)">
+                                    <em class="playcount" ng-show="episode.playcount">&#10003;</em>
+                                </div>
                             </div>
+                            <div class="back" rating rating-value="episode.rating" rating-max="10"></div>
                         </div>
-                        <div class="back" rating rating-value="episode.rating" rating-max="10"></div>
+                    </flipper>
+                    <div class="span8">
+                        <p>{{episode.title || episode.name}}</p>
+                        <p>{{episode.episode | episode:episode.season}}</p>
                     </div>
-                </flipper>
-                <div class="span8">
-                    <p>{{episode.title || episode.name}}</p>
-                    <p>{{episode.episode | episode:episode.season}}</p>
-                </div>
+                </a>
             </li>
         </ul>
         <div ng-show="!episodes.length" class="empty list">Oops! nothing here</div>

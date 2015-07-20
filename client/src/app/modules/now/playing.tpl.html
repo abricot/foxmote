@@ -3,11 +3,11 @@
     <div ng-switch-when="false">
         <div ng-switch on="library.item.type" class="playing">
             <div ng-switch-when="movie">
-                <div ng-include src="'movie/details.tpl.html'"></div>
+                <div ng-include src="'modules/movie/details.tpl.html'"></div>
             </div>
 
             <div ng-switch-when="episode">
-                <div ng-include src="'tvshow/details.tpl.html'"></div>
+                <div ng-include src="'modules/tvshow/details.tpl.html'"></div>
             </div>
 
             <div ng-switch-default class="detail">
