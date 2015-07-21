@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="span3" style="text-align : center;">
                     <div class="md-circle status" ng-class="{connected : connected, disconnected : !connected}">
-                        <i ng-class="{'icon-ok' : connected, 'icon-remove' : !connected}"></i> 
+                        <i ng-class="{'icon-ok' : connected, 'icon-remove' : !connected}"></i>
                     </div>
                 </div>
                 <h1 class="span9" ng-switch on="connected">
@@ -24,7 +24,7 @@
     <nav ng-class="{'active-player' : player.active, 'inactive-player': !player.active}">
         <h2>Discover</h2>
         <ul>
-            <li ng-repeat="item in discover" class="row" 
+            <li ng-repeat="item in discover" class="row"
                 ng-click="go(item.hash)" ng-class="{selected : isCurrent(item.hash)}">
                 <div class="span2">
                     <i class="{{item.icon}}"></i>
@@ -36,7 +36,7 @@
         </ul>
         <h2>My content</h2>
         <ul>
-            <li ng-repeat="item in medias" class="row" 
+            <li ng-repeat="item in medias" class="row"
                 ng-click="go(item.hash)" ng-class="{selected : isCurrent(item.hash)}">
                 <div class="span2">
                     <i class="{{item.icon}}"></i>
@@ -45,7 +45,7 @@
                     {{item.label}}
                 </div>
             </li>
-            <li  ng-show="player.active" class="row" 
+            <li  ng-show="player.active" class="row"
                  ng-click="go('/now/playing')" ng-class="{selected :isCurrent('/now/playing')}">
                 <div class="span2">
                     <i class="icon-youtube-play"></i>
@@ -54,7 +54,7 @@
                     Now playing
                 </div>
             </li>
-            <li ng-show="player.active" class="row" 
+            <li ng-show="player.active" class="row"
                 ng-click="go('/now/playlist')" ng-class="{selected :isCurrent('/now/playlist')}">
                 <div class="span2">
                     <i class="icon-glass"></i>
@@ -63,7 +63,7 @@
                     Queue
                 </div>
             </li>
-            <li ng-repeat="item in controls" class="row" 
+            <li ng-repeat="item in controls" class="row"
                 ng-click="go(item.hash)" ng-class="{selected :isCurrent(item.hash)}">
                 <div class="span2">
                     <i class="{{item.icon}}"></i>
@@ -82,6 +82,11 @@
             </li>
         </ul>
     </nav>
+
+    <a href="https://twitter.com/foxmoteapp" class="twitter-wrapper" target="_blank">
+      <i class="icon-twitter"></i>
+      Follow us on twitter
+    </a>
     <div class="now playing" ng-show="player.active">
         <seekbar seekbar-value="player.seek.percentage" seekbar-max="100" seekbar-read-only="true"></seekbar>
         <div class="row">
